@@ -1,0 +1,95 @@
+.paragraph-hero {
+  max-width: 490px;
+  font-family: "Didact Gothic", sans-serif;
+  color: #546681;
+  font-size: 20px;
+  line-height: 1.7;
+  font-style: normal;
+}
+
+.paragraph-standard {
+  max-width: 600px;
+  margin-bottom: 0;
+  font-family: "Didact Gothic", sans-serif;
+  color: #67718e;
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.paragraph {
+  max-width: 490px;
+  font-family: "Didact Gothic", sans-serif;
+  color: #546681;
+  font-size: 20px;
+  line-height: 1.6;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.title-page {
+  max-width: none;
+  margin-right: auto;
+  margin-bottom: 15px;
+  margin-left: auto;
+  font-family: Jost, sans-serif;
+  color: var(--primary-color);
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: none;
+  margin-right: auto;
+  margin-bottom: 15px;
+  margin-left: auto;
+  font-family: Jost, sans-serif;
+  color: var(--primary-color);
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.title-copy {
+  width: auto;
+  height: auto;
+  max-height: none;
+  margin-bottom: 15px;
+  font-family: Jost, sans-serif;
+  color: var(--primary-color);
+  font-size: 50px;
+  line-height: 40px;
+  font-weight: 800;
+  text-align: left;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.secondary-small {
+  max-width: 490px;
+  font-family: "Didact Gothic", sans-serif;
+  color: #546681;
+  font-size: 20px;
+  line-height: 1.7;
+  font-style: normal;
+  margin-right: auto;
+  margin-left: auto;
+  font-weight: 400;
+  text-align: center;
+}
+
+.title-content {
+  margin-bottom: 14px;
+  font-family: Jost, sans-serif;
+  color: #4891ff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}

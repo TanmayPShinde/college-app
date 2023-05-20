@@ -1,0 +1,17 @@
+.container-bg {
+  width: auto;
+  max-width: 1209px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 72px;
+  border-radius: 22px;
+  background-image: url("../../../assets/rectangle-1684.svg");
+  background-position: 0 0;
+  background-size: cover;
+}
+
+@media only screen and (max-width: 480px) {
+  .container-bg {
+    padding-inline: 10px;
+  }
+}

@@ -1,0 +1,44 @@
+.heading-primary {
+  max-width: 500px;
+  margin: 0 auto 20px;
+  font-family: Jost, sans-serif;
+  color: #1a3066;
+  font-size: 38px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+
+.heading-primary.h3-center {
+  max-width: 700px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.footer-heading {
+  margin-top: 0;
+  margin-bottom: auto;
+  padding-bottom: 14px;
+  font-family: "Didact Gothic", sans-serif;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.h1-cta-4 {
+  margin-bottom: 22px;
+  font-family: Jost, sans-serif;
+  color: #1a3066;
+  font-size: 36px;
+  line-height: 64px;
+  font-weight: 300;
+}
+
+.title-plan {
+  margin-top: 4px;
+  font-family: Jost, sans-serif;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+}

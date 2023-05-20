@@ -1,0 +1,33 @@
+.content-square-1 {
+  position: absolute;
+  left: auto;
+  top: auto;
+  right: 0;
+  bottom: auto;
+  max-width: 500px;
+  min-width: 40%;
+  padding: 60px 48px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f2f3f8;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.heading-5 {
+  font-family: "Didact Gothic", sans-serif;
+  color: #1a3066;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 990px) {
+  .preview-content-wrap {
+    flex-direction: column;
+  }
+  .content-square-1 {
+    position: unset;
+  }
+}

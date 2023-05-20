@@ -1,0 +1,39 @@
+.wrap.wrap-title {
+  display: flex;
+  margin-bottom: 80px;
+  padding-right: 10px;
+  padding-left: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.wrap.wrap-content {
+  position: relative;
+  max-width: none;
+}
+
+.title-wrap-copy {
+  display: flex;
+  margin-bottom: -3px;
+  padding-right: 10px;
+  padding-left: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+}
+
+.wrap.title-wrap-2 {
+  display: flex;
+  max-width: 720px;
+  margin-right: auto;
+  margin-bottom: 72px;
+  margin-left: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 0px;
+}

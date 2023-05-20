@@ -1,0 +1,75 @@
+.card-pricing {
+  display: flex;
+  padding: 40px 40px 48px;
+  flex-direction: column;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #eff0f6;
+  border-radius: 24px;
+  background-color: #fff;
+  box-shadow: 1px 1px 12px 0 rgba(20, 20, 43, 0.08);
+}
+
+.card-pricing.popular {
+  position: relative;
+  padding-top: 30px;
+  background-color: #4891ff;
+  color: white;
+}
+
+.pricing {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  font-family: Jost, sans-serif;
+  color: #2e3642;
+  font-size: 54px;
+  line-height: 66px;
+  font-weight: 700;
+}
+.pricing.popular {
+  color: white;
+}
+
+.pricing span {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 22px;
+}
+
+.list-pricing {
+  margin-top: 24px;
+  margin-bottom: 0;
+  color: #fff;
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-item-pricing {
+  display: flex;
+  margin-bottom: 16px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.popular-badge-align---brix {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.badge-popular---brix {
+  position: absolute;
+  left: auto;
+  top: 20px;
+  right: 20px;
+  bottom: auto;
+  display: inline-block;
+  padding: 12px 17px;
+  border-radius: 110px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 14px;
+  line-height: 14px;
+  font-family: Jost, sans-serif;
+}
