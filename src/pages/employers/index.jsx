@@ -1,20 +1,42 @@
-import React, { useState } from "react";
-import Hero from "../../components/hero";
-import HeroImage from "./assets/candidates.svg";
-import Description from "../../components/description/Description";
-import Plans from "../../components/pricing/plans";
-import PageConclusion from "../../components/layout/pageConclusion/PageConclusion";
+// import React, { useState } from "react";
+// import Hero from "../../components/hero";
+// import HeroImage from "./assets/candidates.svg";
+// import Description from "../../components/description/Description";
+// import Plans from "../../components/pricing/plans";
+// import PageConclusion from "../../components/layout/pageConclusion/PageConclusion";
 
-import serviceImage from "./assets/frame-11604.svg";
-import first from "./assets/group-11376.svg";
-import second from "./assets/group-11378.svg";
-import third from "./assets/group-11380.svg";
+// import serviceImage from "./assets/frame-11604.svg";
+// import first from "./assets/group-11376.svg";
+// import second from "./assets/group-11378.svg";
+// import third from "./assets/group-11380.svg";
+import "./styles.css";
+
+import { db } from "../../utils/firebase";
+import { onValue, ref } from "firebase/database";
+import { useEffect, useState } from "react";
 
 function Employers() {
-  const [monthly, setMonthly] = useState(1);
+  const [timetable, setTimetable] = useState({});
+
+  useEffect(() => {
+    const query = ref(db, "se_timetable");
+    return onValue(query, (snapshot) => {
+      const data = snapshot.val();
+
+      if (snapshot.exists()) {
+        // Object.values(data).forEach((project) => {
+        //   setTimetable((timetable) => [...timetable, project]);
+        // });
+        setTimetable(data);
+      }
+    });
+  }, []);
+
+  console.log(timetable);
+
   return (
     <>
-      <Hero
+      {/* <Hero
         heading="‍Hiring made easy"
         subHeading="FOR EMPLOYERS"
         description="Recruit top talent for your company through universities and colleges by connecting with a network."
@@ -107,7 +129,112 @@ function Employers() {
         content="Explore the new way of hiring!"
         buttonText="Join waitlist"
         buttonLink="https://app.talenlio.com/auth/user-type"
-      />
+      /> */}
+      <div className="wrapper">
+        <table>
+          <caption>Timetable</caption>
+          <tr>
+            <th>Time</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+          </tr>
+          <tr>
+            <td>9:00</td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+          </tr>
+          <tr>
+            <td>10:00</td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+          </tr>
+          <tr>
+            <td>11:00</td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+          </tr>
+          <tr>
+            <td>12:00</td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+          </tr>
+          <tr>
+            <td>13:00</td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+          </tr>
+          <tr>
+            <td>14:00</td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+          </tr>
+          <tr>
+            <td>15:00</td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+          </tr>
+          <tr>
+            <td>16:00</td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+          </tr>
+          <tr>
+            <td>17:00</td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+            <td contenteditable=""></td>
+          </tr>
+        </table>
+      </div>
     </>
   );
 }

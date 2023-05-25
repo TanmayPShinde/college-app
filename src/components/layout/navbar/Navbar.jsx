@@ -47,37 +47,33 @@ function Navbar() {
                   to="/"
                   className={`nav-link ${pathname === "/" ? "first" : ""}`}
                 >
-                  Home
+                  Events
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/for-employers"
+                  to="/timetable"
                   className={`nav-link ${
-                    pathname === "/for-employers" ? "first" : ""
+                    pathname === "/timetable" ? "first" : ""
                   }`}
                 >
-                  Employers
+                  Timetable
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/for-universities"
-                  className={`nav-link ${
-                    pathname === "/for-universities" ? "first" : ""
-                  }`}
+                  to="/notes"
+                  className={`nav-link ${pathname === "/notes" ? "first" : ""}`}
                 >
-                  Universities
+                  Notes
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/for-candidates"
-                  className={`nav-link ${
-                    pathname === "/for-candidates" ? "first" : ""
-                  }`}
+                  to="/read"
+                  className={`nav-link ${pathname === "/read" ? "first" : ""}`}
                 >
-                  Candidates
+                  Read
                 </Link>
               </li>
             </ul>

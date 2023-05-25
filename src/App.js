@@ -14,9 +14,9 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/for-employers" element={<Employers />} />
-          <Route path="/for-universities" element={<Universities />} />
-          <Route path="/for-candidates" element={<Candidates />} />
+          <Route path="/timetable" element={<Employers />} />
+          <Route path="/notes" element={<Universities />} />
+          <Route path="/read" element={<Candidates />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
         <Footer />

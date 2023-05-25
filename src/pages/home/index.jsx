@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Hero from "../../components/hero";
 import HeroImage from "./assets/job-interview.svg";
 import Services from "./Services";
 import Description from "../../components/description/Description";
 import PreviewService from "./PreviewService";
 import PageConclusion from "../../components/layout/pageConclusion/PageConclusion";
+import SimpleCarousel from "../../components/carousel/SimpleCarousel";
 
 import EmployerImg from "./assets/job-offer.svg";
 import UniversityImg from "./assets/global-online-education.svg";
@@ -13,9 +14,63 @@ import UniversityPreview from "./assets/group-11383.svg";
 import EmployerPreview from "./assets/group-11354.svg";
 import CandidatePreview from "./assets/group-11364.svg";
 
+// firebase
+import { db } from "../../utils/firebase";
+import { onValue, ref } from "firebase/database";
+
 function Home() {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const query = ref(db, "events");
+    return onValue(query, (snapshot) => {
+      const data = snapshot.val();
+
+      if (snapshot.exists()) {
+        Object.values(data).forEach((project) => {
+          setEvents((events) => [...events, project]);
+        });
+      }
+    });
+  }, []);
+
+  console.log(events);
+
+  const even = [
+    {
+      date: "12june",
+      photo:
+        "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZXZlbnRzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      register:
+        "https://docs.google.com/forms/d/1J18pcGcDp7XMuU1xfZlif-yUPku4m8A0qGbmpIndd_k/edit#responses",
+      subtitle:
+        "there are 2 stages in the competition ideathon and hackthon respectively",
+      title: "hackathon competition",
+    },
+    {
+      date: "14june",
+      photo:
+        "https://images.unsplash.com/photo-1549451371-64aa98a6f660?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnRzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      register:
+        "https://docs.google.com/forms/d/1J18pcGcDp7XMuU1xfZlif-yUPku4m8A0qGbmpIndd_k/edit#responses",
+      subtitle: "festival of sinhgad for enjoying life",
+      title: "artist game",
+    },
+  ];
+
   return (
     <>
+      <SimpleCarousel>
+        {even.map((event) => {
+          <div>
+            <img src={event.photo} alt="event" />
+            <h2>{event.title}</h2>
+          </div>;
+        })}
+        <div>
+          <img src="" alt="" />
+        </div>
+      </SimpleCarousel>
       <Hero
         heading="Showcase talents and uncover opportunities"
         subHeading=""
