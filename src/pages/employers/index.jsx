@@ -1,242 +1,104 @@
-// import React, { useState } from "react";
-// import Hero from "../../components/hero";
-// import HeroImage from "./assets/candidates.svg";
-// import Description from "../../components/description/Description";
-// import Plans from "../../components/pricing/plans";
-// import PageConclusion from "../../components/layout/pageConclusion/PageConclusion";
+import React, { useEffect, useState } from "react";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
-// import serviceImage from "./assets/frame-11604.svg";
-// import first from "./assets/group-11376.svg";
-// import second from "./assets/group-11378.svg";
-// import third from "./assets/group-11380.svg";
-import "./styles.css";
-
-import { db } from "../../utils/firebase";
-import { onValue, ref } from "firebase/database";
-import { useEffect, useState } from "react";
-
-function Employers() {
-  const [timetable, setTimetable] = useState({});
+const Timetable = () => {
+  const [timetableData, setTimetableData] = useState({});
+  const [editedCell, setEditedCell] = useState(null);
 
   useEffect(() => {
-    const query = ref(db, "se_timetable");
-    return onValue(query, (snapshot) => {
-      const data = snapshot.val();
+    // Initialize Firebase (replace with your own Firebase configuration)
+    const firebaseConfig = {
+      apiKey: "AIzaSyB34jTsPQwJ6MWId18QzI2GggSTW2hgzWc",
+      authDomain: "sinhgad-9ab08.firebaseapp.com",
+      databaseURL: "https://sinhgad-9ab08-default-rtdb.firebaseio.com",
+      projectId: "sinhgad-9ab08",
+      storageBucket: "sinhgad-9ab08.appspot.com",
+      messagingSenderId: "665284120779",
+      appId: "1:665284120779:web:1c562f640c62b1c52f8b4e",
+      measurementId: "G-52VW66N9KS",
+    };
 
-      if (snapshot.exists()) {
-        // Object.values(data).forEach((project) => {
-        //   setTimetable((timetable) => [...timetable, project]);
-        // });
-        setTimetable(data);
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Fetch timetable data from "se_timetable" collection
+    const fetchTimetableData = async () => {
+      try {
+        const timetableRef = db.collection("se_timetable");
+        const snapshot = await timetableRef.get();
+        const data = snapshot.docs.reduce((result, doc) => {
+          result[doc.id] = doc.data();
+          return result;
+        }, {});
+        setTimetableData(data);
+      } catch (error) {
+        console.log("Error fetching timetable data:", error);
       }
-    });
+    };
+
+    fetchTimetableData();
   }, []);
 
-  console.log(timetable);
+  const handleCellClick = (day, time) => {
+    setEditedCell({ day, time });
+  };
+
+  const handleCellBlur = async (event, day, time) => {
+    const { value } = event.target;
+
+    try {
+      const timetableRef = firebase
+        .firestore()
+        .collection("se_timetable")
+        .doc(day);
+      await timetableRef.set({ [time]: value }, { merge: true });
+      setTimetableData((prevData) => ({
+        ...prevData,
+        [day]: { ...prevData[day], [time]: value },
+      }));
+    } catch (error) {
+      console.log("Error updating timetable data:", error);
+    }
+
+    setEditedCell(null);
+  };
 
   return (
-    <>
-      {/* <Hero
-        heading="‍Hiring made easy"
-        subHeading="FOR EMPLOYERS"
-        description="Recruit top talent for your company through universities and colleges by connecting with a network."
-        heroImage={HeroImage}
-      />
-      <Description
-        serviceTitle="Recruiting Made Simple"
-        serviceHeading="Campus Hiring and online Recruitment infrastructure"
-        serviceImage={serviceImage}
-        serviceImageAlt="employer service"
-        title="Employer Features"
-        heading="Automated Job Post and Interview Process"
-        contents={[
-          {
-            image: first,
-            alt: "alt",
-            heading: "Evaluations on every Hiring round",
-            description:
-              "Hire candidates hassle-free by evaluating them based on their skills, and conducting interviews with multiple Interview panel members and members of the team.",
-            width: "60%",
-            padding: "0px",
-            imageWidth: "100%",
-          },
-          {
-            image: second,
-            alt: "alt",
-            heading: "One - click Job Post",
-            description:
-              "Create Job Posts with ease. Publish a personal career page for your company to share job postings easliy.",
-            width: "60%",
-            padding: "0px",
-            imageWidth: "100%",
-            side: "right",
-            marginBottom: "120px",
-          },
-          {
-            image: third,
-            alt: "alt",
-            heading: "Set custom Configuration for Hiring",
-            description:
-              "Configurations customised to your job requirements to make it easier for interview panels to conduct interviews.",
-            width: "60%",
-            padding: "0px",
-            imageWidth: "100%",
-            marginBottom: "0px",
-          },
-        ]}
-      />
-      <Plans
-        discountOnYearly={20}
-        monthly={monthly}
-        setMonthly={setMonthly}
-        plans={[
-          {
-            title: "Buisness",
-            price: 5,
-            priceAnually: 48,
-            benefits: [
-              "Publish up to 3 job posts",
-              "Connect up to 3 universities",
-              "Email support",
-              "Up to 3 users",
-            ],
-          },
-          {
-            title: "Growth",
-            price: "15",
-            priceAnually: "144",
-            popular: true,
-            popularText: "Save 20%",
-            benefits: [
-              "Publish up to 30 job posts",
-              "Connect up to 30 universities",
-              "Phone and email support from a dedicated team",
-              "Unlimited users",
-            ],
-          },
-          {
-            title: "Enterprise",
-            benefits: [
-              "Publish unlimited Job posts",
-              "Get connected with unlimited universities",
-              "Email support",
-              "Unlimited users",
-            ],
-          },
-        ]}
-      />
-      <PageConclusion
-        content="Explore the new way of hiring!"
-        buttonText="Join waitlist"
-        buttonLink="https://app.talenlio.com/auth/user-type"
-      /> */}
-      <div className="wrapper">
-        <table>
-          <caption>Timetable</caption>
-          <tr>
-            <th>Time</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-            <th>Sunday</th>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(timetableData).map(([day, dayData]) => (
+          <tr key={day}>
+            <td>{day}</td>
+            {Object.entries(dayData).map(([time, lecture]) => (
+              <td
+                key={time}
+                onClick={() => handleCellClick(day, time)}
+                onBlur={(event) => handleCellBlur(event, day, time)}
+                contentEditable={
+                  editedCell &&
+                  editedCell.day === day &&
+                  editedCell.time === time
+                }
+              >
+                {lecture}
+              </td>
+            ))}
           </tr>
-          <tr>
-            <td>9:00</td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-          </tr>
-          <tr>
-            <td>10:00</td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-          </tr>
-          <tr>
-            <td>11:00</td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-          </tr>
-          <tr>
-            <td>12:00</td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-          </tr>
-          <tr>
-            <td>13:00</td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-          </tr>
-          <tr>
-            <td>14:00</td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-          </tr>
-          <tr>
-            <td>15:00</td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-          </tr>
-          <tr>
-            <td>16:00</td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-          </tr>
-          <tr>
-            <td>17:00</td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-            <td contenteditable=""></td>
-          </tr>
-        </table>
-      </div>
-    </>
+        ))}
+      </tbody>
+    </table>
   );
-}
+};
 
-export default Employers;
+export default Timetable;
