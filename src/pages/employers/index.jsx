@@ -1,37 +1,30 @@
 import React, { useEffect, useState } from "react";
-import firebase from "firebase/app";
+// import {firebase} from "firebase/app";
 import "firebase/firestore";
+import "./styles.css";
+
+import { db } from "../../utils/firebase";
+import { onValue, ref, set } from "firebase/database";
 
 const Timetable = () => {
   const [timetableData, setTimetableData] = useState({});
   const [editedCell, setEditedCell] = useState(null);
 
   useEffect(() => {
-    // Initialize Firebase (replace with your own Firebase configuration)
-    const firebaseConfig = {
-      apiKey: "AIzaSyB34jTsPQwJ6MWId18QzI2GggSTW2hgzWc",
-      authDomain: "sinhgad-9ab08.firebaseapp.com",
-      databaseURL: "https://sinhgad-9ab08-default-rtdb.firebaseio.com",
-      projectId: "sinhgad-9ab08",
-      storageBucket: "sinhgad-9ab08.appspot.com",
-      messagingSenderId: "665284120779",
-      appId: "1:665284120779:web:1c562f640c62b1c52f8b4e",
-      measurementId: "G-52VW66N9KS",
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
     // Fetch timetable data from "se_timetable" collection
     const fetchTimetableData = async () => {
       try {
-        const timetableRef = db.collection("se_timetable");
-        const snapshot = await timetableRef.get();
-        const data = snapshot.docs.reduce((result, doc) => {
-          result[doc.id] = doc.data();
-          return result;
-        }, {});
-        setTimetableData(data);
+        const query = ref(db, "se_timetable");
+        return onValue(query, (snapshot) => {
+          const data = snapshot.val();
+
+          if (snapshot.exists()) {
+            // Object.values(data).forEach((project) => {
+            //   setTimetableData(project);
+            // });
+            setTimetableData(data);
+          }
+        });
       } catch (error) {
         console.log("Error fetching timetable data:", error);
       }
@@ -45,18 +38,15 @@ const Timetable = () => {
   };
 
   const handleCellBlur = async (event, day, time) => {
-    const { value } = event.target;
+    const { innerText } = event.target;
+    console.log(innerText, day, time);
 
     try {
-      const timetableRef = firebase
-        .firestore()
-        .collection("se_timetable")
-        .doc(day);
-      await timetableRef.set({ [time]: value }, { merge: true });
-      setTimetableData((prevData) => ({
-        ...prevData,
-        [day]: { ...prevData[day], [time]: value },
-      }));
+      set(ref(db, "se_timetable/" + day + "/" + time), innerText);
+      // setTimetableData((prevData) => ({
+      //   ...prevData,
+      //   [day]: { ...prevData[day], [time]: value },
+      // }));
     } catch (error) {
       console.log("Error updating timetable data:", error);
     }
@@ -65,39 +55,45 @@ const Timetable = () => {
   };
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Time</th>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
-        </tr>
-      </thead>
-      <tbody>
-        {Object.entries(timetableData).map(([day, dayData]) => (
-          <tr key={day}>
-            <td>{day}</td>
-            {Object.entries(dayData).map(([time, lecture]) => (
-              <td
-                key={time}
-                onClick={() => handleCellClick(day, time)}
-                onBlur={(event) => handleCellBlur(event, day, time)}
-                contentEditable={
-                  editedCell &&
-                  editedCell.day === day &&
-                  editedCell.time === time
-                }
-              >
-                {lecture}
-              </td>
-            ))}
+    <div className="wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>9:00</th>
+            <th>10:00</th>
+            <th>11:00</th>
+            <th>12:00</th>
+            <th>13:00</th>
+            <th>14:00</th>
+            <th>15:00</th>
+            <th>16:00</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {Object.entries(timetableData).map(([day, dayData]) => (
+            <tr key={day}>
+              <th>{day}</th>
+              {Object.entries(dayData).map(([time, lecture]) => (
+                <td
+                  key={time}
+                  onClick={() => handleCellClick(day, time)}
+                  onBlur={(event) => handleCellBlur(event, day, time)}
+                  contentEditable={
+                    editedCell &&
+                    editedCell.day === day &&
+                    editedCell.time === time
+                  }
+                  // contentEditable={true}
+                >
+                  {lecture}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
