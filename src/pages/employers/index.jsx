@@ -6,7 +6,7 @@ import "./styles.css";
 import { db } from "../../utils/firebase";
 import { onValue, ref, set } from "firebase/database";
 
-const Timetable = () => {
+const Timetable = ({ year }) => {
   const [timetableData, setTimetableData] = useState({});
   const [editedCell, setEditedCell] = useState(null);
 
@@ -14,7 +14,7 @@ const Timetable = () => {
     // Fetch timetable data from "se_timetable" collection
     const fetchTimetableData = async () => {
       try {
-        const query = ref(db, "se_timetable");
+        const query = ref(db, `${year}_timetable`);
         return onValue(query, (snapshot) => {
           const data = snapshot.val();
 
@@ -31,7 +31,7 @@ const Timetable = () => {
     };
 
     fetchTimetableData();
-  }, []);
+  }, [year]);
 
   const handleCellClick = (day, time) => {
     setEditedCell({ day, time });
@@ -42,7 +42,7 @@ const Timetable = () => {
     console.log(innerText, day, time);
 
     try {
-      set(ref(db, "se_timetable/" + day + "/" + time), innerText);
+      set(ref(db, `${year}_timetable/` + day + "/" + time), innerText);
       // setTimetableData((prevData) => ({
       //   ...prevData,
       //   [day]: { ...prevData[day], [time]: value },

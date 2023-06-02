@@ -47,33 +47,31 @@ function Navbar() {
                   to="/"
                   className={`nav-link ${pathname === "/" ? "first" : ""}`}
                 >
-                  Events
+                  FE
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/timetable"
-                  className={`nav-link ${
-                    pathname === "/timetable" ? "first" : ""
-                  }`}
+                  to="/se"
+                  className={`nav-link ${pathname === "/se" ? "first" : ""}`}
                 >
-                  Timetable
+                  SE
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/notes"
-                  className={`nav-link ${pathname === "/notes" ? "first" : ""}`}
+                  to="/te"
+                  className={`nav-link ${pathname === "/te" ? "first" : ""}`}
                 >
-                  Notes
+                  TE
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/read"
-                  className={`nav-link ${pathname === "/read" ? "first" : ""}`}
+                  to="/be"
+                  className={`nav-link ${pathname === "/be" ? "first" : ""}`}
                 >
-                  Read
+                  BE
                 </Link>
               </li>
             </ul>
