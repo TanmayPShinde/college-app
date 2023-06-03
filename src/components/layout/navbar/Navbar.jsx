@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
-import Logo from "../../../media/logo.svg";
+// import Logo from "../../../media/logo.svg";
 import "./styles.css";
-import Button from "../../shared/button";
+// import Button from "../../shared/button";
 import { useEffect } from "react";
 
 function Navbar() {
@@ -28,11 +28,12 @@ function Navbar() {
         <div className="d-flex justify-content-between align-items-center">
           <div>
             <Link to="/">
-              <img
+              {/* <img
                 src={Logo}
                 className="navbrand"
                 alt="Showcase talents and uncover opportunities"
-              />
+              /> */}
+              <h2 style={{ color: "" }}>College Code</h2>
             </Link>
           </div>
           <div className="hamburger" onClick={handleHamburgerClick}>
@@ -75,12 +76,12 @@ function Navbar() {
                 </Link>
               </li>
             </ul>
-            <Button
+            {/* <Button
               content="Sign In"
               link="https://app.talenlio.com/auth/login"
               variant="secondary"
               style={{ marginLeft: "2rem" }}
-            />
+            /> */}
           </div>
         </div>
       </div>
