@@ -19,9 +19,25 @@ function App() {
           <Route path="/read" element={<Candidates />} /> */}
           <Route path="/*" element={<NotFound />} />
           <Route path="/" element={<Employers year="fe" />} />
+          <Route
+            path="/admin/*"
+            element={<Employers year="fe" editabel={true} />}
+          />
           <Route path="/se" element={<Employers year="se" />} />
+          <Route
+            path="/se/admin/*"
+            element={<Employers year="se" editabel={true} />}
+          />
           <Route path="/te" element={<Employers year="te" />} />
+          <Route
+            path="/te/admin/*"
+            element={<Employers year="te" editabel={true} />}
+          />
           <Route path="/be" element={<Employers year="be" />} />
+          <Route
+            path="/be/admin/*"
+            element={<Employers year="be" editabel={true} />}
+          />
         </Routes>
         {/* <Footer /> */}
       </Router>

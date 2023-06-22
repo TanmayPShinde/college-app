@@ -6,7 +6,7 @@ import "./styles.css";
 import { db } from "../../utils/firebase";
 import { onValue, ref, set } from "firebase/database";
 
-const Timetable = ({ year }) => {
+const Timetable = ({ year, editabel }) => {
   const [timetableData, setTimetableData] = useState({});
   const [editedCell, setEditedCell] = useState(null);
 
@@ -80,6 +80,7 @@ const Timetable = ({ year }) => {
                   onClick={() => handleCellClick(day, time)}
                   onBlur={(event) => handleCellBlur(event, day, time)}
                   contentEditable={
+                    editabel &&
                     editedCell &&
                     editedCell.day === day &&
                     editedCell.time === time
@@ -95,6 +96,11 @@ const Timetable = ({ year }) => {
       </table>
     </div>
   );
+};
+
+Timetable.defaultProps = {
+  year: "fe",
+  editabel: false,
 };
 
 export default Timetable;
